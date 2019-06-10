@@ -6,8 +6,8 @@
 
       <div class="card-header">
           <div class="row">
-            <span class="alert alert-success border rounded"><%= product.id%></span>
-            <h2 class="col-md-9 text-center"><%= product.id %></h2>
+            <span class="alert alert-success border rounded"><%= product.order_id %></span>
+            <h2 class="col-md-9 text-center"><%= product.product_id %></h2>
           </div>
       </div>
 
@@ -15,6 +15,14 @@
           <%= product.created_at.strftime('%F') %>
           <%= product.created_at.strftime('%H:%M') %>
       </div>
-      
+
     </div>
 <% end %>
+
+  <%= form_for @current_order do |form| %>
+      <%= form.hidden_field :status, :value => "created" %>
+      <%= form.submit("Оформить заказ",{:class => 'btn btn-primary btn-lg'})%>
+  <% end %>
+<h2>
+  <%= link_to "Оформить заказ", ordered_products_path, class: "btn btn-outline-warning text-white" %>
+</h2>
