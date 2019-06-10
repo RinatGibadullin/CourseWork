@@ -1,0 +1,20 @@
+<span><h1>Продукты</h1></span>
+
+<% @current_order.ordered_products.each do |product| %>
+
+    <div class="card border-info mb-3">
+
+      <div class="card-header">
+          <div class="row">
+            <span class="alert alert-success border rounded"><%= product.id%></span>
+            <h2 class="col-md-9 text-center"><%= product.id %></h2>
+          </div>
+      </div>
+
+      <div class="card-footer text-muted">
+          <%= product.created_at.strftime('%F') %>
+          <%= product.created_at.strftime('%H:%M') %>
+      </div>
+      
+    </div>
+<% end %>

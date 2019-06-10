@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+	before_action :set_product, only: [:show, :edit, :update, :destroy]
+  	before_action :authenticate_user!, except: [:index, :show]
 	def index
 		@product = Product.all
 	end
@@ -48,8 +50,12 @@ class ProductsController < ApplicationController
 	end
 
 
-
 	private 
+
+	def set_product
+      @product = Product.find(params[:id])
+    end
+
 	def post_params
 		params.require(:product).permit(:category,:title,:description,:price)
 	end

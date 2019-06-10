@@ -21,8 +21,13 @@
       <nav class="my-2 my-md-0 mr-md-3">
         <h4><%= link_to 'На главную',home_path, class: "p-2 text-white" %></h4>
       </nav>
+
+        <h2>
+          <%= link_to "Корзина", ordered_products_path, class: "btn btn-outline-warning text-white" %>
+        </h2>
       
       <% if user_signed_in? %>
+
         <h2>
           <%= link_to current_user.username, profile_path, class: "btn btn-outline-warning text-white" %>
         </h2>

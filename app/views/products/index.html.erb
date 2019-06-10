@@ -12,9 +12,7 @@
     <div class="card-body">
       <h5 class="card-subtitle mb-2 text-muted text-center"><%= product.description %></h5>
       <h3 class="card-text text-center"><%= product.price %></h3>
-      <p>
-      	<%= image_tag product.picture.url unless product.picture.nil? %>
-      </p>
+      
 
       <div class="text-right">
         <p><%= link_to 'купить', product, class: "btn btn-outline-primary" %></p>

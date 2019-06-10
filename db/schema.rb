@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_13_125020) do
+ActiveRecord::Schema.define(version: 2019_06_10_141036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carts", force: :cascade do |t|
+    t.string "product"
+    t.string "references"
+    t.string "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "cart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1
+    t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+  end
+
+  create_table "ordered_products", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.decimal "amount"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_ordered_products_on_order_id"
+    t.index ["product_id"], name: "index_ordered_products_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "category"
@@ -39,4 +74,8 @@ ActiveRecord::Schema.define(version: 2019_05_13_125020) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "ordered_products", "orders"
+  add_foreign_key "ordered_products", "products"
 end
