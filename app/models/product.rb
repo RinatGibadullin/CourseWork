@@ -1,9 +1,6 @@
 class Product < ApplicationRecord
-	has_many :ordered_product
+	has_many :ordered_product, :dependent => :destroy
 	mount_uploader :picture, PictureUploader
-
-	before_destroy :not_referenced_by_any_line_item
-
   #validates :title, :brand, :price, :model, presence: true
   #validates :description, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed" }
   #validates :title, length: { maximum: 140, too_long: "%{count} characters is the maximum allowed" }

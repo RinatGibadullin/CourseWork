@@ -15,12 +15,7 @@ class ProductsController < ApplicationController
 	end
 
 	def create
-		# @post = Post.new(post_params)
-		# @post.user_id = current_user.id
-
-		@user = current_user
 		@product = Product.new(post_params)
-		@product.picture = params[:file]
 
 		if @product.save
 			redirect_to @product
@@ -57,6 +52,6 @@ class ProductsController < ApplicationController
     end
 
 	def post_params
-		params.require(:product).permit(:category,:title,:description,:price)
+		params.require(:product).permit(:category,:title,:description,:price, :picture)
 	end
 end

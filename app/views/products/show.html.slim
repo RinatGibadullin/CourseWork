@@ -8,6 +8,7 @@ p
       h2.col-md-9.text-center
         = @product.title
   .card-body
+    = image_tag(@product.picture.url, alt: 'Image') 
     h5.card-subtitle.mb-2.text-muted
       = @product.description
     h3.card-text

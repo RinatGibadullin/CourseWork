@@ -9,6 +9,7 @@ span
       h2.text-center
         = product.title
     .card-body
+      = image_tag(product.picture.url, alt: 'Image') if product.picture?
       h5.card-subtitle.mb-2.text-muted.text-center
         = product.description
       h3.card-text.text-center

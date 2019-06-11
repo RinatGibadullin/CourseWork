@@ -2,17 +2,30 @@ span
   h1
     | Корзина
 - unless @current_order.ordered_products.blank?
-  - @current_order.ordered_products.each do |product|
+  - @current_order.ordered_products.each do |ordered_product|
     .card.border-info.mb-3
       .card-header
         .row
           span.alert.alert-success.border.rounded
-            = product.order_id
+            = ordered_product.order_id
           h2.col-md-9.text-center
-            = product.product_id
+            = ordered_product.product.title
+
+      .card-body
+        = image_tag(ordered_product.product.picture.url, alt: 'Image') if ordered_product.product.picture?
+        h5.card-subtitle.mb-2.text-muted.text-center
+          = ordered_product.product.description
+        h3.card-text.text-center
+          = ordered_product.product.price
+        .text-right
+          p
+            = link_to 'подробнее', ordered_product.product, class: "btn btn-outline-primary"
+
       .card-footer.text-muted
-        = product.created_at.strftime('%F')
-        = product.created_at.strftime('%H:%M')
+        p
+          | Добавлен 
+          = ordered_product.created_at.strftime('%F')
+
   = form_for @current_order do |form|
     = form.hidden_field :status, :value => "created"
     = form.submit("Оформить заказ",{:class => 'btn btn-primary btn-lg'})
