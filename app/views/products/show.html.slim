@@ -8,12 +8,12 @@ p
       h2.col-md-9.text-center
         = @product.title
   .card-body
-    = image_tag(@product.picture.url, alt: 'Image') 
+    .card-text.text-center
+      = image_tag(@product.picture.thumb.url, alt: 'Image') 
     h5.card-subtitle.mb-2.text-muted
       = @product.description
-    h3.card-text
+    h3.card-text.text-center
       = @product.price
-  = link_to "Положить в корзину", new_ordered_product_path(product_id: @product.id)
+      |  ₽
   .card-footer.text-muted
-    = @product.created_at.strftime('%F')
-    = @product.created_at.strftime('%H:%M')
+    = link_to "В корзину", new_ordered_product_path(product_id: @product.id), class: "btn btn-outline-primary"

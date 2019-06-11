@@ -12,11 +12,12 @@ span
             = ordered_product.product.title
 
       .card-body
-        = image_tag(ordered_product.product.picture.url, alt: 'Image') if ordered_product.product.picture?
+        = image_tag(ordered_product.product.picture.thumb.url, alt: 'Image') if ordered_product.product.picture?
         h5.card-subtitle.mb-2.text-muted.text-center
-          = ordered_product.product.description
+          = ordered_product.product.description.truncate(100)
         h3.card-text.text-center
           = ordered_product.product.price
+          |  ₽
         .text-right
           p
             = link_to 'подробнее', ordered_product.product, class: "btn btn-outline-primary"
