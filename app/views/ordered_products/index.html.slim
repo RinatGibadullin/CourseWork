@@ -1,0 +1,22 @@
+span
+  h1
+    | Корзина
+- unless @current_order.ordered_products.blank?
+  - @current_order.ordered_products.each do |product|
+    .card.border-info.mb-3
+      .card-header
+        .row
+          span.alert.alert-success.border.rounded
+            = product.order_id
+          h2.col-md-9.text-center
+            = product.product_id
+      .card-footer.text-muted
+        = product.created_at.strftime('%F')
+        = product.created_at.strftime('%H:%M')
+  = form_for @current_order do |form|
+    = form.hidden_field :status, :value => "created"
+    = form.submit("Оформить заказ",{:class => 'btn btn-primary btn-lg'})
+- else
+  |  Корзина пуста :( 
+  p
+    = link_to 'добавить товары в корзину', products_path, class: "btn btn-outline-primary"

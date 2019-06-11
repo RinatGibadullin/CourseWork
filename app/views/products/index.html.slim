@@ -1,0 +1,27 @@
+span
+  h1
+    | Продукты
+- @product.each do |product|
+  .card.border-info.mb-3
+    .card-header
+      span.alert.alert-success.border.rounded
+        = product.category
+      h2.text-center
+        = product.title
+    .card-body
+      h5.card-subtitle.mb-2.text-muted.text-center
+        = product.description
+      h3.card-text.text-center
+        = product.price
+      .text-right
+        p
+          = link_to 'подробнее', product, class: "btn btn-outline-primary"
+      .text-right
+        p
+          = link_to "Положить в корзину", new_ordered_product_path(product_id: product.id), class: "btn btn-outline-primary"
+        p
+
+    .card-footer.text-muted
+      = product.created_at.strftime('%F')
+      = product.created_at.strftime('%H:%M')
+  br

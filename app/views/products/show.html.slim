@@ -1,0 +1,18 @@
+p
+  = link_to 'К списку продуктов', products_path, class: "btn btn-outline-primary"
+.card.border-info.mb-3
+  .card-header
+    .row
+      span.alert.alert-success.border.rounded
+        = @product.category
+      h2.col-md-9.text-center
+        = @product.title
+  .card-body
+    h5.card-subtitle.mb-2.text-muted
+      = @product.description
+    h3.card-text
+      = @product.price
+  = link_to "Положить в корзину", new_ordered_product_path(product_id: @product.id)
+  .card-footer.text-muted
+    = @product.created_at.strftime('%F')
+    = @product.created_at.strftime('%H:%M')

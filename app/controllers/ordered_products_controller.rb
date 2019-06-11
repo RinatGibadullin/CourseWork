@@ -1,8 +1,5 @@
 class OrderedProductsController < ApplicationController
-
-
 	def index
-		@orderedProducts = OrderedProduct.all
 	end
 
 	def new
@@ -12,7 +9,4 @@ class OrderedProductsController < ApplicationController
 			render :index
 	end
 
-	def update
-		
-	end
 end
