@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
 	before_action :set_current_order
 
 	def set_current_order
+		# session["current_order_id"] = nil
 		current_user_id = nil
 		if !current_user.nil?
 			current_user_id = current_user.id

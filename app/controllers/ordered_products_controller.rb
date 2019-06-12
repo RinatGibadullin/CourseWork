@@ -9,4 +9,8 @@ class OrderedProductsController < ApplicationController
 			render :index
 	end
 
+	def destroy
+		
+	end
+
 end
