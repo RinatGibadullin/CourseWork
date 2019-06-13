@@ -1,7 +1,10 @@
-.text-center
+div.bg-light.text-center.border.border-primary.rounded
 	h1
 	  | Мой профиль
 br
+
+h2.text-right
+    = link_to "Изменить данные профиля", edit_user_registration_path, class: "btn btn-warning text-white"
 
 h2.text-right
     = link_to "История заказов", users_orders_path, class: "btn btn-warning text-white"
@@ -12,3 +15,7 @@ h2.text-right
 	.h3
 		| email: 
 		= current_user.email
+
+	.h3
+		| Номер телефона: 
+		= current_user.phone

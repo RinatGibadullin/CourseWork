@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
 		if session["current_order_id"]
 			@current_order = Order.find(session["current_order_id"])
 			if (@current_order.status != "draft")
-				@current_order = Order.create(status: "draft", user_id: current_user_id)
+				@current_order = Order.create(status: "draft")
 				session["current_order_id"] = @current_order.id
 			end
 		else
-			@current_order = Order.create(status: "draft", user_id: current_user_id)
+			@current_order = Order.create(status: "draft")
 			session["current_order_id"] = @current_order.id
 		end
 	end

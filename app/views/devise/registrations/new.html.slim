@@ -15,10 +15,13 @@ h2
         | (
         = @minimum_password_length
         |  characters minimum)
-    = f.password_field :password, autocomplete: "new-password", class: "form-control"
+    = f.password_field :password, autocomplete: "Пароль", class: "form-control"
   .form-group
     = f.label :Повторите_пароль
     = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+  .form-group
+    = f.label :Номер_телефона
+    = f.text_field :phone, autocomplete: "new-password", class: "form-control"
   .actions
     = f.submit "Зарегистрироваться", class: "btn btn-primary"
 = render "devise/shared/links"

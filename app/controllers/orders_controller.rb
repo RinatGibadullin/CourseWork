@@ -5,15 +5,16 @@ class OrdersController < ApplicationController
 		if !current_user.nil?
 			current_user_id = current_user.id
 		end
+		if (params[:order][:status] == 'created')
+			@current_order.update_attributes(:status => params[:order][:status], :user_id => current_user_id)
+			redirect_to ordered_products_path
+		end
 
-		@current_order.update_attributes(:status => params[:order][:status], :user_id => current_user_id)
-		redirect_to :controller => 'ordered_products', :action => 'index'
-	end
-
-	def destroy
-		@order = Order.find(params[:id])
-		@order.destroy
-		redirect_to users_orders_path
+		if (params[:order][:status] == 'canceled')
+			@order = Order.find(params[:id])
+			@order.update_attributes(:status => params[:order][:status])
+			redirect_to users_orders_path
+		end
 	end
 
 	private 
