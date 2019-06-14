@@ -3,9 +3,10 @@ p
 .card.border-info.mb-3
   .card-header
     .row
-      span.alert.alert-success.border.rounded
-        = @product.category
-      h2.col-md-9.text-center
+      span.col-md-3.text-center
+        .alert.alert-success.border.rounded
+          = @product.category
+      h2.col-md-7.text-center
         = @product.title
   .card-body
     .card-text.text-center
@@ -14,9 +15,12 @@ p
       = @product.description
     h3.card-text.text-center
       = number_to_currency(@product.price, locale: :ru)
-      / |  ₽
   .card-footer.text-muted
-    = form_with url: new_ordered_product_path, method: :get, local: true do |form|
-      = form.hidden_field :product_id, :value => @product.id
-      = form.number_field :amount, :value => 1
-      = form.submit("В корзину", {:class => 'btn btn-primary btn-lg'})
+    .row
+      div.p.col-md-1.text-center
+        | Кол-во: 
+      div.col-md-5
+        = form_with url: new_ordered_product_path, method: :get, local: true do |form|
+          = form.hidden_field :product_id, :value => @product.id
+          = form.number_field :amount, :value => 1
+          = form.submit("В корзину", {:class => 'btn btn-primary btn-lg col-md-4'})

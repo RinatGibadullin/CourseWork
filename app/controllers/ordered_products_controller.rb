@@ -1,5 +1,9 @@
 class OrderedProductsController < ApplicationController
 	def index
+		@total_price = 0
+		@current_order.ordered_products.each do |ordered_product|
+			@total_price += ordered_product.price
+		end
 	end
 
 	def new
@@ -12,13 +16,16 @@ class OrderedProductsController < ApplicationController
 
 
 		if @productsIdArray.include?(params[:product_id])
-			@orderedProduct = OrderedProduct.where("product_id = ? and order_id = ?", 
-				params[:product_id], @current_order.id)
-			@orderedProduct.update_attributes(
-				:amount => (@orderedProduct.amount + params[:amount].to_int), 
-				:price => @orderedProduct.product.price * (@orderedProduct.amount + params[:amount].to_int))
 
-			@orderedProduct.save
+			@orderedProduct = OrderedProduct.find_by(
+				product_id: params[:product_id], 
+				order_id: @current_order.id)
+
+			@amount = params[:amount].to_i
+
+			@orderedProduct.update_attributes(
+				:amount => (@orderedProduct.amount + @amount), 
+				:price => @orderedProduct.product.price * (@orderedProduct.amount + @amount))
 			redirect_to products_path
 		else
 			@orderedProduct = OrderedProduct.create(product_id: params[:product_id], 
@@ -32,7 +39,9 @@ class OrderedProductsController < ApplicationController
 	end
 
 	def destroy
-		
+		@ordered_product = OrderedProduct.find(params[:id])
+		@ordered_product.destroy
+		redirect_to ordered_products_path
 	end
 
 end

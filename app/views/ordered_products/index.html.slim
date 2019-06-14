@@ -9,11 +9,13 @@ div
     .card.border-info.mb-3
       .card-header
         .row
-          h2.col-md-9.text-center
+          h2.col-md-8.text-center
             = ordered_product.product.title
           h3.col-md-2.text-center
             | Кол-во: 
             = ordered_product.amount
+          h3.col-md-2.text-center
+            = link_to 'удалить', ordered_product_path(ordered_product), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
       .card-body
         .card-text.text-center
@@ -22,7 +24,6 @@ div
           = ordered_product.product.description.truncate(100)
         h3.card-text.text-center
           = number_to_currency(ordered_product.product.price, locale: :ru)
-          / |  ₽
         .text-right
           p
             = link_to 'подробнее', ordered_product.product, class: "btn btn-outline-primary"
@@ -34,12 +35,19 @@ div
         h3.text-right
           | Цена:  
           = number_to_currency(ordered_product.price, locale: :ru)
-
+  hr
+  h1
+    | Итого: 
+    = number_to_currency(@total_price, locale: :ru)
   = form_for @current_order do |form|
     = form.hidden_field :status, :value => "created"
     = form.submit("Оформить заказ",{:class => 'btn btn-primary btn-lg'})
+  br
+  br
 - else
   h5.text-center
     |  Корзина пуста :( 
-  p.text-center
-    = link_to 'добавить товары в корзину', products_path, class: "btn btn-outline-primary"
+  .text-center
+    = link_to products_path, class: "btn btn-success btn-lg text-white"
+      i.fa.fa-cart-plus  
+      |  добавить товары в корзину
