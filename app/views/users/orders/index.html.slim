@@ -34,17 +34,23 @@ span
                   div.alert.alert-dark.border.rounded
                     | заказ отменён
         .card-body
-
+          - @total_price = 0
           - order.ordered_products.each do |ordered_product|
-            span.card-text.text-left 
-              = ordered_product.product.title
-              |  - 
-              = ordered_product.amount
-              |  шт.
-              br
+              span.card-text.text-left 
+                = ordered_product.product.title
+                |  - 
+                = ordered_product.amount
+                |  шт., 
+                = number_to_currency(ordered_product.price, locale: :ru)
+                - @total_price += ordered_product.price
+                br
         .text-right
           p
             = link_to 'посмотреть товары', users_order_path(id: order.id), class: "btn btn-outline-primary"
+          div.alert.alert-secondary.border.rounded           
+            h3
+              | Итого: 
+              = number_to_currency(@total_price, locale: :ru)
 
         .card-footer.text-muted
           p
