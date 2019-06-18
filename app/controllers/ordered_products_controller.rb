@@ -5,16 +5,11 @@ class OrderedProductsController < ApplicationController
 			@total_price += ordered_product.price
 		end
 	end
-
 	def new
 		@productsIdArray ||= []
-
 		@current_order.ordered_products.each do |ordered_product|
 			@productsIdArray.push(ordered_product.product.id.to_s)
 		end
-
-
-
 		if @productsIdArray.include?(params[:product_id])
 
 			@orderedProduct = OrderedProduct.find_by(
@@ -37,11 +32,9 @@ class OrderedProductsController < ApplicationController
 			redirect_to products_path
 		end
 	end
-
 	def destroy
 		@ordered_product = OrderedProduct.find(params[:id])
 		@ordered_product.destroy
 		redirect_to ordered_products_path
 	end
-
 end
